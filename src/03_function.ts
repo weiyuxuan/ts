@@ -46,12 +46,19 @@
   /*
    * 重载函数
    * 以多种不同的方式（传参形式）来调用一个函数，参数类型可以定义多种。
-   * 一般来说，声明重载的函数类型时，每个重载的签名都必须可以赋值给实现的函数。
+   * 一般来说，声明了重载的函数类型，每个重载的签名都必须被函数实现。
    */
-  type Reservation = { price: number }
   type Reserve = {
-    (from: Date, to: Date, destination: string): Reservation,
-    (from: Date, destination: string): Reservation
+    (from: Date, to: Date, destination: string): string,
+    (from: Date, destination: string): string
+  }
+
+  const reserve: Reserve = (from, toOrDest, destination?) => {
+    if (typeof toOrDest === 'string') {
+      return `Date: ${from} - ${toOrDest}, Dest: ${destination}`
+    } else {
+      return `Date: ${from}, Dest: ${destination}`
+    }
   }
 
   type CreateElement = {
@@ -63,7 +70,7 @@
 
   /*
    * 多态
-   * 无法知道具体类型，并且想确认传入的确实是那个类型时，使用泛型。泛型是在类型层面施加约束的占位类型，也称多态类型参数。
+   * 当无法知道具体类型，并且想确认传入的确实是那个类型时，使用泛型。泛型是在类型层面施加约束的占位类型，也称多态类型参数。
    * 泛型参数使用尖括号 <> 声明，可以理解成 type 关键字的缩写。
    * 泛型让函数的功能更具有一般性，比接受具体类型的函数更强大。
    */
@@ -124,10 +131,15 @@
    */
   function map<T, U>(array: T[], f: (item: T) => U): U[] {
     // 即使以前没见过 map 函数，也可以通过签名直观看到 map 的作用
+    const result: U[] = []
+    for(let i = 0; i < array.length; i++) {
+      result.push(f(array[i]))
+    }
+    return result
   }
 }
 
 // 一些总结：
 // 1. 声明泛型的位置不仅限定泛型的作用域，还决定 TypeScript 什么时候为泛型绑定具体的类型；
 // 2. 如果想将泛型限制在一个类型上限，可以使用 <T extends MyType>，那么 T 可以是 MyType，也可以是 MyType 的子类型；
-// 3. 可以为泛型指定一个默认类型
+// 3. 可以为泛型指定一个默认类型。

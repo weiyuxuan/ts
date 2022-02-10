@@ -32,6 +32,14 @@
             f(i);
         }
     } // 上下文推导
+    const reserve = (from, toOrDest, destination) => {
+        if (typeof toOrDest === 'string') {
+            return `Date: ${from} - ${toOrDest}, Dest: ${destination}`;
+        }
+        else {
+            return `Date: ${from}, Dest: ${destination}`;
+        }
+    };
     let filter = (array, f) => {
         let result = [];
         for (let i = 0; i < result.length; i++) {
@@ -65,9 +73,14 @@
      */
     function map(array, f) {
         // 即使以前没见过 map 函数，也可以通过签名直观看到 map 的作用
+        const result = [];
+        for (let i = 0; i < array.length; i++) {
+            result.push(f(array[i]));
+        }
+        return result;
     }
 }
 // 一些总结：
 // 1. 声明泛型的位置不仅限定泛型的作用域，还决定 TypeScript 什么时候为泛型绑定具体的类型；
 // 2. 如果想将泛型限制在一个类型上限，可以使用 <T extends MyType>，那么 T 可以是 MyType，也可以是 MyType 的子类型；
-// 3. 可以为泛型指定一个默认类型
+// 3. 可以为泛型指定一个默认类型。

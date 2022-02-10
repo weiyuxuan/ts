@@ -10,8 +10,7 @@
     "url": "git+https://github.com/weiyuxuan/ts.git"
   },
   "scripts": {
-    "compile": "tsc",
-    "lint": "eslint --ext .ts,.tsx --fix --format stylish"
+    "compile": "tsc"
   },
   "bugs": {
     "url": "https://github.com/weiyuxuan/ts/issues"
@@ -21,10 +20,8 @@
     "@commitlint/cli": "^16.1.0",
     "@commitlint/config-conventional": "^16.0.0",
     "@types/node": "^17.0.17",
-    "@typescript-eslint/eslint-plugin": "^5.11.0",
-    "@typescript-eslint/parser": "^5.11.0",
-    "eslint": "^8.8.0",
     "husky": "^7.0.4",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^4.5.5"
   }
 }

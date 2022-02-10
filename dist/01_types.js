@@ -69,7 +69,8 @@
     /*
      * symbol 类型
      * symbol 是符号类型，通常用于代替对象和映射的字符串键，确保使用正确的已知键，防止键被意外设置。
-     * TypeScript 在编译时知道一个 unique symbol 类型的值绝不会与另一个 unique symbol 类型的值相等。
+     * unique symbol 是 symbol 的子类型，只能用于 const 声明。用于标识 symbol 的唯一性。
+     * TypeScript 在编译时能判断一个 unique symbol 类型的值绝不会与另一个 unique symbol 类型的值相等。
      */
     let a7 = Symbol('a'); // symbol
     let b7 = Symbol('b'); // symbol
@@ -77,7 +78,7 @@
     let d7 = a7 + 'x'; // Error: "+" 运算符不能应用于类型 "symbol"
     const e7 = Symbol('e'); // typeof e7
     const f7 = Symbol('f'); // typeof f7
-    let g7 = Symbol('f'); // symbol
+    let g7 = Symbol('g'); // Error: 类型为 "unique symbol" 的变量必须为 "const"。
     let h7 = e7 === e7; // boolean
     let i7 = e7 === f7; // Error: 此条件将始终返回 "false"，因为类型 "typeof e7" 和 "typeof f7" 没有重叠
     /*
@@ -212,7 +213,7 @@
 }
 // 一些总结：
 // 1. 尽量不用 any 类型，确实不确定类型可以用 unknown 类型；
-// 2. 我们通常让 TypeScript 自己推导类型，如果没有特殊原因，不要把值的类型显式注解为 boolean / number / bigint / string / symbol；
+// 2. 我们通常让 TypeScript 自己推导类型，如果没有特殊原因，不需要把类型显式注解为 boolean / number / bigint / string / symbol；
 // 3. 当使用 const 关键字进行变量声明时，简单值类型会推导得更具体，变成类型字面量；
 // 4. 对于对象的可选键，可以使用 ? 修饰符；对于对象的只读键，可以使用 readonly 修饰符；
 // 5. 对于数组的整体只读性，可以使用 readonly 修饰符；
